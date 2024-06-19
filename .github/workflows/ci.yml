@@ -1,0 +1,39 @@
+name: ci
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+concurrency:
+  group: ci-${{github.ref}}-${{github.event.pull_request.number || github.run_number}}
+  cancel-in-progress: true
+
+jobs:
+  changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      container: ${{ steps.filter.outputs.container }}
+    steps:
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # @v2
+        if: ${{ github.event_name == 'push' }}
+        with:
+          fetch-depth: 0
+
+        # For pull requests it's not necessary to checkout the code
+      - uses: dorny/paths-filter@de90cc6fb38fc0963ad72b210f1f284cd68cea36
+        id: filter
+        with:
+          filters: |
+            container:
+              - '.github/**'
+              - 'Dockerfile'
+
+  container:
+    if: ${{ needs.changes.outputs.container == 'true' }}
+    needs: changes
+    uses: ./.github/workflows/container.yml
