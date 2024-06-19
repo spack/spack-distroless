@@ -1,0 +1,27 @@
+# Copyright 2013-2021 Lawrence Livermore National Security, LLC and other
+# Spack Project Developers. See the top-level COPYRIGHT file for details.
+#
+# SPDX-License-Identifier: (Apache-2.0 OR MIT)
+spack:
+  specs:
+    - python
+    - gcc@12.2.0+binutils
+    - gmake
+    - patch
+    - tar
+    - gzip
+    - unzip
+    - bzip2
+    - xz
+    - zstd
+    - git
+  view:
+    default:
+      root: /view
+      link: roots
+      exclude: [python, gmake]
+    python:
+      root: /python-view
+      select: [python]
+  concretizer:
+    unify: true
