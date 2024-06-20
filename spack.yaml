@@ -17,7 +17,14 @@ spack:
   view:
     final:
       root: /view
-      select: [git, patch, tar, unzip, gcc, binutils]
+      select:
+        - binutils
+        - coreutils
+        - gcc
+        - git
+        - patch
+        - tar
+        - unzip
     python:
       root: /python-view
       select: [python]
