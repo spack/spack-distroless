@@ -4,22 +4,20 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 spack:
   specs:
-    - python
-    - gcc@12.2.0+binutils
+    - coreutils
+    - gcc+binutils
+    - git
     - gmake
     - patch
+    - python
+    - sed
     - tar
-    - gzip
     - unzip
-    - bzip2
-    - xz
-    - zstd
-    - git
+    - util-linux
   view:
-    default:
+    final:
       root: /view
-      link: roots
-      exclude: [python, gmake]
+      select: [git, patch, tar, unzip, gcc, binutils]
     python:
       root: /python-view
       select: [python]
