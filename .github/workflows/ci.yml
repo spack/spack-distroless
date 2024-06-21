@@ -32,6 +32,7 @@ jobs:
             container:
               - '.github/**'
               - 'Dockerfile'
+              - 'spack.yaml'
 
   container:
     if: ${{ needs.changes.outputs.container == 'true' }}
