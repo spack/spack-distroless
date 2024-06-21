@@ -32,4 +32,4 @@ jobs:
           push: ${{ github.ref == 'refs/heads/develop' }}
           tags: ghcr.io/spack/spack-distroless:latest
           cache-from: type=registry,ref=ghcr.io/spack/spack-distroless:buildcache
-          cache-to: type=registry,ref=ghcr.io/spack/spack-distroless:buildcache,mode=max
+          cache-to: ${{ github.ref == 'refs/heads/develop' && 'type=registry,ref=ghcr.io/spack/spack-distroless:buildcache,mode=max' || '' }}
