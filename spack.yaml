@@ -10,10 +10,12 @@ spack:
     - gmake
     - patch
     - python
-    - sed
     - tar
     - unzip
     - util-linux
+    # We need to bootstrap the following packages that depend on themselves
+    - sed
+    - grep
   view:
     final:
       root: /view
