@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y \
     libc6-dev \
     python3
 
-RUN git clone -c feature.manyFiles=true https://github.com/spack/spack.git
+RUN git clone -c feature.manyFiles=true --depth=2 https://github.com/spack/spack.git
 
 ENV PATH="${PATH}:/spack/bin"
 

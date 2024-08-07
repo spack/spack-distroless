@@ -1,6 +1,10 @@
 # Spack Distroless
 A minimal container environment to test Spack builds.
 
+```
+podman run --rm -it ghcr.io/spack/spack-distroless
+```
+
 ## License
 
 This project is part of Spack. Spack is distributed under the terms of both the
