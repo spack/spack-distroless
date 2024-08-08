@@ -30,5 +30,8 @@ spack:
     python:
       root: /python-view
       select: [python]
+  packages:
+    all:
+      target: [x86_64_v3]
   concretizer:
     unify: true
