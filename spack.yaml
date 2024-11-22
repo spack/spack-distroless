@@ -33,5 +33,7 @@ spack:
   packages:
     all:
       target: [x86_64_v3]
+    gcc:
+      buildable: True
   concretizer:
     unify: true
