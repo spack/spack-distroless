@@ -1,4 +1,4 @@
-FROM docker.io/debian:12.8 AS bootstrap
+FROM docker.io/debian:12.9 AS bootstrap
 
 RUN apt-get update && apt-get install -y \
     build-essential \
@@ -19,7 +19,7 @@ RUN spack -e /root/spack-env install --fail-fast
 RUN spack view add -i /bootstrap-view $(spack find -H)
 
 
-FROM docker.io/debian:12.8 AS base
+FROM docker.io/debian:12.9 AS base
 
 RUN apt-get update && apt-get install -y \
     libc6-dev
@@ -39,7 +39,7 @@ RUN spack clean -a
 RUN spack gc -e /root/spack-env -y -b
 
 
-FROM docker.io/debian:12.8-slim
+FROM docker.io/debian:12.9-slim
 
 RUN rm -rf /usr/bin /usr/sbin
 
