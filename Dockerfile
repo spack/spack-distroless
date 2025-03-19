@@ -48,6 +48,7 @@ COPY --from=base /view /view
 COPY --from=base /python-view /python-view
 
 COPY --from=base /usr/lib /usr/lib/
+COPY --from=base /usr/include /usr/include
 COPY --from=base /usr/bin/sh /usr/bin/sh
 COPY --from=base /usr/bin/env /usr/bin/env
 
