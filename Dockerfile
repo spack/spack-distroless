@@ -13,6 +13,10 @@ ENV PATH="${PATH}:/spack/bin"
 
 COPY spack.yaml /root/spack-env/spack.yaml
 
+RUN spack compiler find
+
+RUN sed -i '/^spec: gcc/s/$/ ~strip/' /root/.spack/packages.yaml
+
 RUN spack -e /root/spack-env concretize
 RUN spack -e /root/spack-env fetch -D
 RUN spack -e /root/spack-env install --fail-fast
@@ -31,9 +35,9 @@ ENV PATH="/bootstrap-view/bin:/spack/bin:${PATH}"
 
 COPY spack.yaml /root/spack-env/spack.yaml
 
-RUN sed -i 's/+binutils/+binutils +strip/g' /root/spack-env/spack.yaml
-
 RUN spack compiler find /bootstrap-view/bin
+
+RUN sed -i '/^spec: gcc/s/$/ ~strip/' /root/.spack/packages.yaml
 
 RUN spack -e /root/spack-env concretize -Uf
 RUN spack -e /root/spack-env install --fail-fast

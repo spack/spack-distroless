@@ -5,7 +5,7 @@
 spack:
   specs:
     - coreutils
-    - gcc@14 +binutils build_type=MinSizeRel
+    - gcc@14 +binutils +strip build_type=MinSizeRel
     - git
     - gmake
     - patch
