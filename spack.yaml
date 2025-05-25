@@ -5,7 +5,7 @@
 spack:
   specs:
     - coreutils
-    - gcc+binutils@11
+    - gcc@14 +binutils build_type=MinSizeRel
     - git
     - gmake
     - patch
@@ -24,9 +24,11 @@ spack:
         - coreutils
         - gcc
         - git
+        - grep
         - patch
         - tar
         - unzip
+        - util-linux
     python:
       root: /python-view
       select: [python]
