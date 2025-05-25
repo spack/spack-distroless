@@ -54,8 +54,3 @@ jobs:
         else
           echo "All jobs completed successfully"
         fi
-
-  dependabot:
-    needs:
-      - all
-    uses: ./.github/workflows/dependabot.yml
