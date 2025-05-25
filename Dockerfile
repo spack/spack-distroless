@@ -31,7 +31,7 @@ ENV PATH="/bootstrap-view/bin:/spack/bin:${PATH}"
 
 COPY spack.yaml /root/spack-env/spack.yaml
 
-RUN sed -i 's/+binutils/+binutils build_type=MinSizeRel/g' /root/spack-env/spack.yaml
+RUN sed -i 's/+binutils/+binutils +strip/g' /root/spack-env/spack.yaml
 
 RUN spack compiler find /bootstrap-view/bin
 
