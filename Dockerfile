@@ -32,9 +32,11 @@ RUN apt-get update && apt-get install -y \
 COPY --from=bootstrap /spack-bootstrap /spack-bootstrap
 COPY --from=bootstrap /bootstrap-view /bootstrap-view
 
+ENV PATH="/bootstrap-view/bin:${PATH}"
+
 RUN git clone -c feature.manyFiles=true --depth=2 https://github.com/spack/spack.git /spack
 
-ENV PATH="/bootstrap-view/bin:/spack/bin:${PATH}"
+ENV PATH="/spack/bin:${PATH}"
 
 COPY spack.yaml /root/spack-env/spack.yaml
 
