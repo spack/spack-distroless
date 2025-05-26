@@ -7,15 +7,16 @@ RUN apt-get update && apt-get install -y \
     libc6-dev \
     python3
 
-RUN git clone -c feature.manyFiles=true --depth=2 https://github.com/spack/spack.git
+RUN git clone -c feature.manyFiles=true --depth=2 https://github.com/spack/spack.git /spack-bootstrap
 
-ENV PATH="${PATH}:/spack/bin"
+ENV PATH="${PATH}:/spack-bootstrap/bin"
 
 COPY spack.yaml /root/spack-env/spack.yaml
 
 RUN spack compiler find
 
-RUN sed -i '/spec: gcc/s/$/ ~strip/' /root/.spack/packages.yaml
+RUN sed -i '/spec: gcc/s/$/ build_type=Release/' /root/.spack/packages.yaml
+RUN sed -i '/gcc.*+strip/s/+strip/~strip/' /root/spack-env/spack.yaml
 
 RUN spack -e /root/spack-env concretize
 RUN spack -e /root/spack-env fetch -D
@@ -28,8 +29,10 @@ FROM docker.io/debian:12.11 AS base
 RUN apt-get update && apt-get install -y \
     libc6-dev
 
-COPY --from=bootstrap /spack /spack
+COPY --from=bootstrap /spack-bootstrap /spack-bootstrap
 COPY --from=bootstrap /bootstrap-view /bootstrap-view
+
+RUN git clone -c feature.manyFiles=true --depth=2 https://github.com/spack/spack.git /spack
 
 ENV PATH="/bootstrap-view/bin:/spack/bin:${PATH}"
 
@@ -37,17 +40,13 @@ COPY spack.yaml /root/spack-env/spack.yaml
 
 RUN spack compiler find /bootstrap-view/bin
 
-RUN sed -i '/spec: gcc/s/$/ ~strip/' /root/.spack/packages.yaml
-
 RUN spack -e /root/spack-env concretize -Uf
 RUN spack -e /root/spack-env install --fail-fast
 RUN spack clean -a
 RUN spack gc -e /root/spack-env -y -b
 
 
-FROM docker.io/debian:12.11-slim
-
-RUN rm -rf /usr/bin /usr/sbin
+FROM scratch
 
 COPY --from=base /spack /spack
 COPY --from=base /view /view
