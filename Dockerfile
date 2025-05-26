@@ -40,6 +40,8 @@ COPY spack.yaml /root/spack-env/spack.yaml
 
 RUN spack compiler find /bootstrap-view/bin
 
+RUN sed -i '/spec: gcc/s/$/ ~strip/' /root/.spack/packages.yaml
+
 RUN spack -e /root/spack-env concretize -Uf
 RUN spack -e /root/spack-env install --fail-fast
 RUN spack clean -a
