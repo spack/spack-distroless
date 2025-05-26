@@ -45,19 +45,14 @@ RUN spack gc -e /root/spack-env -y
 FROM scratch
 
 COPY --from=base /spack /spack
-COPY --from=base /view /view
+COPY --from=base /view /usr
+COPY --from=base /view/bin /bin
 COPY --from=base /python-view /python-view
 
-COPY --from=base /usr/lib /usr/lib/
-COPY --from=base /usr/include /usr/include
-COPY --from=base /usr/bin/sh /usr/bin/sh
-COPY --from=base /usr/bin/env /usr/bin/env
-
 ENV SPACK_PYTHON=/python-view/bin/python3
-ENV PATH=/view/bin:/spack/bin:/bin
+ENV PATH=/usr/bin:/spack/bin
 
 RUN spack compiler find
-
 RUN spack bootstrap now
 
-ENTRYPOINT ["/bin/sh"]
+ENTRYPOINT ["/usr/bin/bash"]

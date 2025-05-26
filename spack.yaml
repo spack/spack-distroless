@@ -4,6 +4,7 @@
 # SPDX-License-Identifier: (Apache-2.0 OR MIT)
 spack:
   specs:
+    - bash
     - coreutils
     - gcc@14 +binutils +strip build_type=MinSizeRel
     - git
@@ -20,6 +21,7 @@ spack:
     final:
       root: /view
       select:
+        - bash
         - binutils
         - coreutils
         - gcc
