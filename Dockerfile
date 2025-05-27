@@ -46,14 +46,16 @@ FROM scratch
 
 COPY --from=base /spack /spack
 COPY --from=base /view /usr
-COPY --from=base /view/bin /bin
-COPY --from=base /view/bin/bash /bin/sh
 COPY --from=base /python-view /python-view
 
 ENV SPACK_PYTHON=/python-view/bin/python3
 ENV PATH=/usr/bin:/spack/bin
 
+SHELL ["/usr/bin/bash", "-c"]
+
+RUN ln -s /usr/bin /bin
+
 RUN spack compiler find
 RUN spack bootstrap now
 
-ENTRYPOINT ["/usr/bin/bash"]
+ENTRYPOINT ["/usr/bin/bash", "-l", "-c"]
