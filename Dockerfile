@@ -47,6 +47,7 @@ FROM scratch
 COPY --from=base /spack /spack
 COPY --from=base /view /usr
 COPY --from=base /view/bin /bin
+COPY --from=base /view/bin/bash /bin/sh
 COPY --from=base /python-view /python-view
 
 ENV SPACK_PYTHON=/python-view/bin/python3
