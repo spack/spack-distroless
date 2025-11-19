@@ -55,8 +55,6 @@ COPY --from=base /usr/bin/env /usr/bin/env
 ENV SPACK_PYTHON=/python-view/bin/python3
 ENV PATH=/view/bin:/spack/bin:/bin
 
-RUN spack compiler find
-
 RUN spack bootstrap now
 
 ENTRYPOINT ["/bin/sh"]
