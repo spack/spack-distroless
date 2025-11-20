@@ -19,16 +19,17 @@ spack:
   view:
     final:
       root: /view
+      link: run
       select:
         - binutils
         - coreutils
-        - gcc
         - git
         - patch
         - tar
         - unzip
     python:
       root: /python-view
+      link: run
       select: [python]
   packages:
     all:
